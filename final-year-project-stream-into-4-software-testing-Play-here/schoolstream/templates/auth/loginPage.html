@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class = "container mt-5">
+        <div class = "card login-box">
+            <div class = "login-text">
+                <span class = "text-area">
+                    <span class = "login-title">
+                        <i class="fas fa-lock fa-lg" style ="margin-right:5px; transform: translateY(-2px)"></i>
+                         User Login
+                    </span>
+                    <span class = "login-sub-title">
+                        (Teacher & Admin Users Only)
+                    </span>
+                    <hr>
+                </span>
+                <!-- Flash Message -->
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class = "alert alert-{{ category }} text-center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <form method = "POST" action = "" >
+                <!-- Protect from Forgery Attacks so need the hidden Tag -->
+                {{ form.hidden_tag() }}
+
+                <!--  Email-->
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}
+                    <!-- Invalid Message Error -->
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.email(class="form-control") }}
+                    {% endif %}
+                </div>
+
+
+                <!-- Password-->
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.password(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class = "text-center">
+                    {{ form.remember(class = "form-check-input")}}
+                    {{ form.remember.label(class = "form-check-label")}}
+                    <br>
+                    {{ form.submit(class = "create-account mt-3")}}
+                    <br>
+                    <br>
+                    <small class = "text-muted mb-5">
+                        <a class = "ml-2" href = "{{url_for('reset_request')}}"> Forgot Password? </a>
+                    </small>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+.text-area
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameRole
+{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.role-type
+{
+    font-size: 13px;
+    font-weight: 700;
+}

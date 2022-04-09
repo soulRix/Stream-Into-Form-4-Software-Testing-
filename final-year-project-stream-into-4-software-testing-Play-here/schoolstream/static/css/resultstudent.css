@@ -1,0 +1,126 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    border:none;
+ 
+}
+
+*:focus
+{
+    outline: none !important;
+}
+
+/*=============================================================*/
+/* Title Section" */
+.content-title
+{
+    display: flex;
+    justify-content:center;
+    font-size: 30px;
+    font-weight: 700;
+   
+}
+
+.content-title-result
+{
+    display: flex;
+    justify-content:center;
+    font-size: 20px;
+    font-weight: 700;
+   
+}
+
+
+/*=============================================================*/
+
+
+
+/*=============================================================*/
+/* School and Student Information" */
+
+
+.school-card
+{
+    border-radius: 30px;
+    margin-left: 60px;
+    padding: 2px 5px 2px 5px;
+}
+
+.school-name
+{
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.school-logo-size
+{
+
+    width: 120px;
+    
+}
+
+.student-school-content
+{
+    margin-top: 30px;
+
+}
+
+
+.student-info-title
+{
+    display: flex;
+    justify-content: center;
+}
+
+.card-for-subject-school
+{
+    background-color: #F9F9F9;
+    border: 1px solid;
+    width: 25rem;
+    border-radius: 30px;
+
+}
+.subject-tick
+{
+    list-style: none;
+  
+}
+.subject-tick-2::before 
+{
+    content: "✅";
+    margin-right: 5px;
+    margin-left: -25px;
+}
+
+.title-change-stream
+{
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.btn-change-stream
+{
+    background-color: #0E233F;
+    border-radius: 20px;
+    color: white;
+}
+
+.btn-change-stream:hover
+{
+    
+    color: white;
+}
+/*=============================================================*/
+
+
+
+
+

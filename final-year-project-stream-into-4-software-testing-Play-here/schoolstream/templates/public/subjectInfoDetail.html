@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{%block content %}
+<!-- Subject & Elective List -->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/subjectDetail.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/subjectInfo.css')}}">
+
+    <div class = "container">
+        <div class = "row subject-title-area">
+            <div class = "col">
+                <span class = "subject-title">{{subjects.subject_title}}</span>
+            </div>
+        </div>
+        <br>
+        <div class = "row">
+            <div class = "col">
+                <span> 
+                    {{subjects.subject_description}}
+                </span>
+            </div>
+        </div>
+        <br>
+        <div class = "row" style = "margin-bottom: 30px;">
+            <div class = "col text-center career-section">
+                <p class = "font-30">Careers Related to {{subjects.subject_title}}</p>
+                <a  href="https://storyset.com/technology">
+                    <p class = "text-muted">
+                        Technology illustrations by Storyset
+                    </p>
+                </a>
+            </div>
+            
+            <div class = "owl-carousel owl-theme" id = "physics">
+
+                {% for career in subjects.careers %}
+                    <div class = "item">
+                        <div class="card career-card">
+                            <div class="card-body career-card-title">
+                            <p class="card-text">{{career.career_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <br>
+        
+
+        <p class = "text-bold font-24 text-center"> What will the student learn?:</p>
+        <hr>
+
+        <div class = "row">
+            <div class = "col-6" style = "border-right: 3px solid #F5CA7B">
+                <span class = "font-20">Form 4</span>
+                <ul class = "gradient-list">
+                    {% for value in subjects.form4Syallabus %}
+                        <li>{{value.syllabusName}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class = "col-6" >
+                <span class = "font-20">Form 5</span>
+                <ul>
+                    {% for value in subjects.form5Syallabus %}
+                        <li>{{value.syllabusName}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <br>
+
+
+    </div>
+
+    <script>
+   
+        $('.owl-carousel').owlCarousel(
+            {
+                autoplay: true,
+                autoplayTimeout:1000,
+                autoplayHoverPause: true,
+                center:true,
+                loop:true,
+                margin:0,
+                nav:false,
+                responsive:
+                {
+                    0:
+                    {
+                        items:1
+                    },
+                    600:
+                    {
+                        items:2
+                    },
+                    1000:
+                    {
+                        items:3
+                    },
+    
+            
+                }
+            }
+        )
+    
+    </script>
+
+
+
+{% endblock content%}

@@ -1,0 +1,48 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    border:0;
+    
+}
+
+*:focus
+{
+ 
+    outline: none !important;
+    
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.search-header
+{
+    margin-top: 56px;
+   
+}
+
+.search-school-bar
+{
+    background-image: url(../img/search.svg);
+    background-position: 95% 50%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding: 12px 40px 12px 20px;
+    border-radius:20px;
+}
+
+
+.edit-area
+{
+    margin-right: 15px;
+}

@@ -1,0 +1,60 @@
+{% extends "baseTeacher.html" %}
+{% block teacher %}
+    <!-- Content Area -->
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "d-flex card flex-column mb-3 p-5" style = "background-color: #cee1ff">
+                    <div class = " text-center mt-3">
+                        <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" class="rounded-circle" width="150" height = "150">
+                        <div class = "text-area mt-3">
+                            <div class = "nameRole mb-2"> {{current_user.name}}</div>
+                            <div class = "text-muted role-type mb-2"> Teacher @ {{teacher.school.shortSchool_name}} </div>
+                            <a href = "{{url_for('account')}}" class = "btn btn-primary"> Edit Profile </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header text-center">Annoucement</h5>
+                    <div class="card-body p-4">
+                        <p class="card-text">
+                            1. Testing Dummy Text Here For Annoucement
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-md-9 card ">
+                <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+                    <div class="col">
+                        <div class="card h-100">
+                            <h5 class="card-header text-center">Total Student</h5>
+                            <div class="card-body">
+                                <h3 class="card-title text-center">
+                                    {{total_student}} Student
+                                </h3>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <h5 class="card-header text-center">Total Request Unreviewed </h5>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <h3 class="card-title text-center">{{total_unreviewed}} Request Unreviewed</h3>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+    </div>
+    <!--------------->
+
+
+{% endblock  teacher %}
+
+
+
+

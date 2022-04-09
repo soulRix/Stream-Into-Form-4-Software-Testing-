@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="School Stream is a Website for Pre-Form 4 Student that can check their classes results and exposed on what their school stream offerings"/>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/headerFooterRole.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/viewProfile.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/manageTeacherAccounts.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/manageSubjectElectives.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/manageSchool.css')}}">
+
+<!-------------  Title Part --------------------->
+{% if title %}
+<title> Admin - {{ title }}</title>
+{% else %}
+<title> Admin </title>
+{% endif %}
+
+<!---------------------------------------------->
+</head>
+<body style = "overflow-x: hidden">
+    <!-- Top Header Navigation -->
+    <header class = "border-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a href = "{{url_for('homepage')}}" class = "logo-section" tyle = " text-decoration: none ">
+                    <img class = "logo-picture" src = "{{url_for('static', filename = 'img/logo_stream.png')}}" width = "50" height = "50">
+                    <span class = "logo-title">School Stream</span>
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item nav-link active">
+                        <a href ="{{url_for('manageSchool')}}" class = "nav-link-text">
+                            Manage School
+                        </a>
+                    </li>
+                    <li class="nav-item nav-link">
+                        <a href ="{{url_for('manageSubjectElectives')}}" class = "nav-link-text">
+                            Manage Subject & Electives
+                        </a>
+                    </li>
+                    <li class="nav-item nav-link">
+                        <a href ="{{url_for('manageTeacher')}}" class = "nav-link-text">
+                            Manage Teacher Accounts
+                        </a>
+                    </li>
+                    <li class = "nav-item dropdown nav-link">
+                        <a href ="#" class = "dropdown-toggle nav-link-text" id = "user-dropdown" data-bs-toggle = "dropdown" aria-expanded = "false" >
+                            <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" class="rounded-circle" width="30" height = "30">
+                            {{ current_user.name }}
+                        </a>
+                        <ul class = "dropdown-menu" aria-labelledby="user-dropdown">
+                            <li><a href ="{{url_for('adminDashboard')}}" class = "dropdown-item">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('account')}}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('logout')}}">Signout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <!--------------->
+
+    <!-- This to get the Flash messages -->
+    <div class = "container-fluid mb-5 mt-5">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class = "alert alert-{{ category }} text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block admin %}{% endblock admin %}
+
+    </div>
+
+    <!-- Footer Section -->
+    <footer class = "footer footer-section mt-auto py-3">
+        <div class = "container footer-text">
+            <p>
+                Stream Into Form 4 Website For Final Year Project
+            </p>
+            <p>
+                By Tuan Arif Uwais, MMU Student
+            </p>
+        </div>
+    </footer>
+    <!-------->
+
+    
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+

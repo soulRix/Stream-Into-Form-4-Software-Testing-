@@ -1,0 +1,65 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    border:none;
+   
+}
+
+*:focus
+{
+    outline: none !important;
+}
+
+ul li
+{
+    list-style-type: none;
+}
+
+.title-area
+{
+    padding-top: 50px;
+    margin-bottom: 40px;
+}
+
+.subject-elective-section
+{
+    column-count: 2;
+    column-fill: balance;
+    column-gap: 5rem;
+}
+
+.subject-elective-area
+{
+    display: inline-block;
+    padding-left: 0;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.subject-elective-title
+{
+    border-bottom: 3px solid #FFF200;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 25px;
+    color: black;
+}
+
+
+.subject-elective-list-link
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+  
+}
+
+.font-18
+{
+    font-size: 18px;
+}

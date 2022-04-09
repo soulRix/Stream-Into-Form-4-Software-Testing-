@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{%block content %}
+<!-- Subject & Elective List -->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/subjectDetail.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/subjectInfo.css')}}">
+
+    <!-- Section Of Subject Infomation-->
+    <div class = "container text-center title-area">
+        <div class = "typewriter">
+            <div class = "typewriter-text" style = "font-size: 40px;">SPM Elective Subject</div>
+        </div>
+        <div class = >
+            <span>
+                Choose one of the subject to see the information about the subject and syllabus
+            </span>
+        </div>
+    </div>
+
+    <!-- Table Form of Subject List-->
+        <div class = "container-xl mb-5">
+            <div class = "row">
+                
+                    <div class = "col-12 subject-elective-section">
+                        <ul class = "list-group subject-elective-area">
+                            <li class = "subject-elective-title">
+                                <span>Pure Science</span>
+                            </li>
+                            {% for subject in subjects %}
+                                {% if subject.subject_category == 'Pure Science' %}
+                                    <li class = "subject-elective-list-link">
+                                        <a href = "{{url_for('subjectListDetails', subject_id = subject.id)}}" class = "font-18">{{subject.subject_title}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <ul class = "list-group subject-elective-area">
+                            <li class = "subject-elective-title">
+                                <span>Languages and Literature</span> 
+                            </li>
+                            {% for subject in subjects %}
+                                {% if subject.subject_category == 'Languages and Literature' %}
+                                    <li class = "subject-elective-list-link">
+                                        <a href = "{{url_for('subjectListDetails', subject_id = subject.id)}}" class = "font-18">{{subject.subject_title}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+
+                        <ul class = "list-group subject-elective-area">
+                            <li class = "subject-elective-title">
+                                <span>Economics & Business</span>
+                            </li>
+                            {% for subject in subjects %}
+                                {% if subject.subject_category == 'Economics & Business' %}
+                                    <li class = "subject-elective-list-link">
+                                        <a href = "{{url_for('subjectListDetails', subject_id = subject.id)}}" class = "font-18">{{subject.subject_title}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+
+                        <ul class = "list-group subject-elective-area">
+                            <li class = "subject-elective-title">
+                                <span>Social Science & Religion</span>
+                            </li>
+                            {% for subject in subjects %}
+                                {% if subject.subject_category == 'Social Science & Religion' %}
+                                    <li class = "subject-elective-list-link">
+                                        <a href = "{{url_for('subjectListDetails', subject_id = subject.id)}}" class = "font-18">{{subject.subject_title}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+
+                        <ul class = "list-group subject-elective-area">
+                            <li class = "subject-elective-title">
+                                <span >Arts and Health</span>
+                            </li>
+                            {% for subject in subjects %}
+                                {% if subject.subject_category == 'Arts and Health' %}
+                                    <li class = "subject-elective-list-link">
+                                        <a href = "{{url_for('subjectListDetails', subject_id = subject.id)}}" class = "font-18">{{subject.subject_title}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+
+                        <ul class = "list-group subject-elective-area">
+                            <li class = "subject-elective-title">
+                                <span>Technical and Vocational</span>
+                            </li>
+                            {% for subject in subjects %}
+                                {% if subject.subject_category == 'Technical and Vocational' %}
+                                    <li class = "subject-elective-list-link">
+                                        <a href = "{{url_for('subjectListDetails', subject_id = subject.id)}}" class = "font-18">{{subject.subject_title}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </ul>
+
+                        
+                    </div>
+            </div>
+        </div>
+
+{% endblock  %}

@@ -1,0 +1,322 @@
+{% extends "baseAdmin.html" %}
+{% block admin %}
+    <!-- Manage School Stuff -->
+    <div class = "container-fluid">
+        <div class = "text-center container">
+            <h2> Manage Teacher Accounts</h2>
+            <hr>
+            <h4>Create or Manage Teacher Accounts</h4>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-lg btn-warning mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#create-TeacherAcc-modal">
+                Create Account for Teacher
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="create-TeacherAcc-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="create-Teacher-modalLabel" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="create-Teacher-modalLabel">Create Account for Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form Here -->
+                        <form class = "" method = "POST" action = "" novalidate >
+                            {{ form.hidden_tag() }}
+
+                            <!-- Teacher's Name -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.name.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.name.errors %}
+                                        {{ form.name(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.name(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Teacher's IC -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.icNumber.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.icNumber.errors %}
+                                        {{ form.icNumber(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.icNumber.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.icNumber(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Teacher's icNumber -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.email.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.email.errors %}
+                                        {{ form.email(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.email(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Teacher's Phone Number -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.phoneNumber.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.phoneNumber.errors %}
+                                        {{ form.phoneNumber(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.phoneNumber.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.phoneNumber(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Teacher's ID -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.teacher_id.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.teacher_id.errors %}
+                                        {{ form.teacher_id(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.teacher_id.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.teacher_id(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Teacher's School -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.school.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.school.errors %}
+                                        {{ form.school(class="form-select is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.teacher_id.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.school(class="form-select") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+
+
+                            <!-- Teacher's Password -->
+                            <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.password.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.password(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Teacher's Confirm Password -->
+                             <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 col-form-label">
+                                    {{ form.confirm_password.label(class = "form-label fw-bold") }}
+                                </div>
+                                <div class = "col-sm-7">
+                                    <!-- Invalid Message Error -->
+                                    {% if form.confirm_password.errors %}
+                                        {{ form.confirm_password(class="form-control is-invalid") }}
+                                        <div class = "invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <!-- Valid -->
+                                        {{ form.confirm_password(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+
+            
+                            
+                            <div class = "text-center">
+                               {{ form.submit(class = "btn btn-primary mt-3")}}
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <br>
+            <div class = "col-sm-8 offset-sm-2 mx-auto py-3 text-center" id = "search_school_form">
+                <input class = "form-control form-control-lg search-school-bar" placeholder = "Find Teacher's Name" id = "schoolSearch" >
+            </div>
+        </div>
+        <div clas = "table-responsive-lg" style = "padding:20px;">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Teacher Name</th>
+                    <th scope="col">School</th>
+                    <th scope="col">Teacher Email</th>
+                    <th scope="col">Teacher Contact Number</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teacher_list.items %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>
+                                {{teacher.teacher_name}}
+                            </td>
+                            <td>
+                                {{teacher.school.school_name}}
+                            </td>
+                            <td>
+                                {{teacher.user.email}}
+                                
+                            </td>
+                            <td>
+                               
+                                {{teacher.user.phoneNumber}}
+                              
+                            </td>
+                            <td>
+                                <div class = "d-flex flex-row justify-content-center action-area">
+                                    <div class = "edit-area">
+                                        <a class = "btn btn-info" href = "{{url_for('update_teacher_account', teacher_id = teacher.id)}}">Edit</a>
+                                    </div>
+
+                                    <!-- Delete button -->
+                                    <div class = "delete-area">
+                                        <button class = "btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{teacher.id}}">Delete</button>
+                                    </div>
+                                    <!-- Delete Modal -->
+                                    <div class="modal fade" id="deleteModal-{{teacher.id}}"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel-{{teacher.id}}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteBackdropLabel-{{teacher.id}}">Delete {{teacher.teacher_name}} Account?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h6>Are you sure you want to delete the {{teacher.teacher_name}} Account? All the Student data will be lost!</h6>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action = "{{url_for('delete_teacher_account', teacher_id = teacher.id)}}" method = "POST">
+                                                        
+                                                        <input class = "btn btn-danger" type = "submit" value = "Delete">
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" style = "float:right">
+                <ul class = "pagination">
+                    {% if teacher_list.has_prev %}
+                        <li class = "page-item"><a class = "page-link" href = "{{url_for('manageTeacher', page = teacher_list.prev_num)}}">Previous</a></li>
+                    {% else %}
+                        <li class = "page-item disabled"><a class = "page-link" tabindex="-1" aria-disabled="true" href = "#">Previous</a></li>
+                    {% endif %}
+                    {% for page_num in teacher_list.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 2) %}
+                        {% if page_num %}
+                            {% if teacher_list.page == page_num %}
+                                <li class = "page-item active"><a class = "page-link " href = "{{url_for('manageTeacher', page = page_num)}}">{{page_num}}</a></li>
+                                
+                            {% else %}
+                                <li class = "page-item"><a class = "page-link" href = "{{url_for('manageTeacher', page = page_num)}}">{{page_num}}</a></li>
+                            {% endif %}
+                        {% else %}
+                            ...
+                        {% endif %}
+                        
+                    {% endfor %}
+
+                    {% if teacher_list.has_next %}
+                        <li class = "page-item"><a class = "page-link" href = "{{url_for('manageTeacher', page = teacher_list.next_num)}}">Next</a></li>
+                    {% else %}
+                        <li class = "page-item disabled"><a class = "page-link" tabindex="-1" aria-disabled="true" href = "#">Next</a></li>
+                    {% endif %}
+                </ul>
+                
+            </nav>
+        </div>
+
+    </div>
+    <!--------------->
+
+{% endblock admin%}

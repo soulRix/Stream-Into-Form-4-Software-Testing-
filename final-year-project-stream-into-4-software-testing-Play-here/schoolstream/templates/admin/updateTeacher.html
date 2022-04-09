@@ -1,0 +1,145 @@
+{% extends "baseAdmin.html" %}
+{% block admin %}
+    <div class = "container mb-5 mt-5">
+        <div class = "row justify-content-center">
+            <div class = "text-center mb-5">
+                <h2 class = "fw-bold">Edit {{teacher.teacher_name}}</h2>
+                <hr>
+                <h4> Edit the neccessary field to update School Information</h4>
+            </div>
+        </div>
+        <form class = "" method = "POST" action = "" novalidate >
+            {{ form.hidden_tag() }}
+
+            <!-- Teacher's Name -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.name.label(class = "form-label fw-bold") }}
+                </div>
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.name(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Teacher's IC -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.icNumber.label(class = "form-label fw-bold") }}
+                </div>
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.icNumber.errors %}
+                        {{ form.icNumber(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.icNumber.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.icNumber(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Teacher's icNumber -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.email.label(class = "form-label fw-bold") }}
+                </div>
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.email(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Teacher's Phone Number -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.phoneNumber.label(class = "form-label fw-bold") }}
+                </div>
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.phoneNumber.errors %}
+                        {{ form.phoneNumber(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.phoneNumber.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.phoneNumber(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Teacher's ID -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.teacher_id.label(class = "form-label fw-bold") }}
+                </div>
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.teacher_id.errors %}
+                        {{ form.teacher_id(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.teacher_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.teacher_id(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Teacher's School -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.school.label(class = "form-label fw-bold") }}
+                </div>
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.school.errors %}
+                        {{ form.school(class="form-select is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.teacher_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.school(class="form-select") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class = "text-center">
+               {{ form.submit(class = "btn btn-primary mt-3")}}
+            </div>
+        </form>
+    </div>
+{% endblock admin%}

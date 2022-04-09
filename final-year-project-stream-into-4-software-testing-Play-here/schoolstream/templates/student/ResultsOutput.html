@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{%block content %}
+
+    <!-- Main Content -->
+    <div class = "container mt-5" style = "margin-bottom: 60px;">
+
+        <!-- Content Title -->
+        <p class = "content-title">
+            Student Class Stream & Examination Results
+            <hr>
+        </p>
+
+        <div class = "row student-school-content">
+            <div class = "col-md-4">
+                <div class="card school-card border border-secondary text-center" style="width: 18rem; height:281px;">
+                    <div class="card-body ">
+                      <div class="card-title">
+                        <img class = "mt-1" src = "{{ url_for('static', filename='school_logo/' + student.school.school_logo) }}" width = "150" height = "180">
+                      </div>
+                      <h6 class="card-subtitle school-name mb-3">{{student.school.shortSchool_name}}</h6>
+                    </div>
+                </div>                
+            </div>
+            <div class = "col-md-8"> 
+                <div class="card">
+                    <div class="card-header text-center">
+                        Student Information
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">Name        : {{student.student_name}}</li>
+                            <li class="list-group-item ">School     : {{student.school.school_name}}</li>
+                            <li class="list-group-item">IC Number   : {{student.student_icNum}}</li>
+                            <li class="list-group-item">Stream Package : {{student.stream_package.stream_name}}</li>
+                            <li class="list-group-item">Class      : {{student.student_form4_class}}</li> 
+                          </ul>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+             
+        <p class = "container-fluid content-title-result" style = "background-color: lightgrey">
+            Examination Results
+        </p>
+        <table class="table table-bordered" style = "border: 1px solid">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for subject in student.grades%}
+                <tr>
+                  <th scope="row">{{loop.index}}</th>
+                  <td>{{subject.name_subjectPT3}}</td>
+                  <td>{{subject.grade_subject}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+
+        <div class = "row mt-5">
+            <div class = "col-md-6" style = "display:flex; justify-content:center">
+            <div class="card card-for-subject-school p-5">
+                <div class="card-body ">
+                    <h5 class="card-title text-center"> {{student.stream_package.stream_name}}</h5>
+                    <hr>
+                    <h6 class="card-subtitle mb-2 text-muted">Based on student school offers</h6>
+                    <ul class = "subject-tick">
+                        {% for subjectList in student.stream_package.subjects %}
+                          <li class = "subject-tick-2">{{subjectList.subject_title}}</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+            </div>
+
+            <div class = "col-md-6" style = "display:flex; justify-content:center">
+            <div class="card card-for-subject-school p-5">
+                <div class="card-body p-5">
+                    <p class="card-title title-change-stream">Don't Like Your Class Stream Result?</p>
+                    <a  href="{{url_for('requestStreamChange')}}" type="button" class="btn btn-lg btn-change-stream">
+                        Request Change
+                    </a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!--------------->
+    
+{% endblock content%}

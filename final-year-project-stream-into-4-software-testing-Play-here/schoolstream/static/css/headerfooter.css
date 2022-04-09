@@ -1,0 +1,137 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    border:none;
+ 
+}
+
+*:focus
+{
+    outline: none !important;
+}
+
+body
+{
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+  
+}
+
+li, a, button
+{
+    font-family:"Montserrat", sans-serif;
+    font-weight:500;
+    font-size: 16px;
+    text-decoration: none !important;
+    color: black;
+;
+}
+
+li:hover,a:hover,button:hover
+{
+    color: black;
+    
+    
+}
+
+
+
+/*=============================================================*/
+/* Logo Area */
+
+.logo-section
+{
+    display: flex;
+    flex-direction: row;
+    font-size: 25px;
+    vertical-align: middle;
+    font-weight: 600;
+    letter-spacing: -.025em;
+    padding: 10px;
+    
+    cursor: pointer;
+}
+
+.logo-title
+{
+    padding: 5px;
+    
+}
+
+header
+{
+    background-color: #EBEDF5;
+}
+
+
+/*=============================================================*/
+
+
+
+/*=============================================================*/
+/*Navigation Area */
+
+.navigation-section
+{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    transform: translateY(-2px);
+}
+
+.nav-link
+{
+    display: inline-block;
+    padding-right: 40px;
+    margin-right: 20px;
+}
+
+.nav-link-text
+{
+    font-weight: 700;
+    font-size:1.063em;
+}
+
+
+
+/*=============================================================*/
+
+
+
+/*=============================================================*/
+/* Footer Area */
+.footer-section
+{
+    margin-top:auto;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width:100%;
+    background-color: #0E233F;
+    color: white;
+
+}
+.footer-text
+{
+    text-align: center;
+    padding: 2.5rem 0;
+    
+}
+/*=============================================================*/
+

@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{%block content %}
+<!-- School List & School Stream Offers-->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/schoolInfo.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/schoolList.css')}}">
+    <div class = "container mt-5" style = "margin-bottom: 50px;">
+        <div class = "row mt-3 justify-content-center">
+            <div class = "col-md-12 text-center">
+                <div class = "school-title mb-3 fw-bold">{{school.school_name}}</div>
+            </div>
+        </div>
+        <div class = "row justify-content-center mt-3 mb-5">
+            <div class = "col-md-12 mb-5 text-center">
+                <img class = "" src = "{{ url_for('static', filename='school_logo/' + school.school_logo) }}" width = "250" height = "300">
+            </div>
+            <div class = "col-sm-12">
+                <h3 class = "fw-bold">School Description: </h3>
+                <hr>
+                    {{school.school_description}}
+                <hr>
+            </div>
+        </div>
+
+        <div class = "row">
+
+            <div class = "col-sm-5 table-responsive-lg me-5 ">
+                <div class = "mb-4">
+                    <h4 class = "fw-bold"> School Information </h4>
+                    <hr>
+                </div>
+                <table class="table table-striped table-bordered border-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Item </th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    <!-- School Code -->
+                      <tr>
+                        <td class = "fw-bold">School Code</td>
+                        <td>{{school.school_code}}</td>
+                      </tr>
+
+                      <!-- PPD Office -->
+                      <tr>
+                        <td class = "fw-bold">Zone</td>
+                        <td>{{school.school_address[0].zones.zone_name}}</td>
+                      </tr>
+
+                      <!-- School Level -->
+                      <tr>
+                        <td class = "fw-bold">Address</td>
+                        <td>Secondary School</td>
+                      </tr>
+
+                      <!-- School Type -->
+                      <tr>
+                        <td class = "fw-bold">School type</td>
+                        <td>{{school.shortForm}}</td>
+                      </tr>
+
+                      <!-- School Stream Offers -->
+                      <tr>
+                        <td class = "fw-bold">School Stream Offers</td>
+                        <td>
+                            {% if total_stream != 0 %}
+                                {{total_stream}}
+                            {% else %}
+                                Unknown
+                            {% endif%}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class = "col-sm-5 table-responsive-lg ms-5">
+                <div class = "mb-4">
+                    <h4 class = "fw-bold">School Address & Contact Information</h4>
+                    <hr>
+                </div>
+                <table class="table table-striped table-bordered border-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Item </th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    <!-- School Name -->
+                      <tr>
+                        <td class = "fw-bold">School Name</td>
+                        <td>{{school.school_name}}</td>
+                      </tr>
+
+                      <!-- Short School Name -->
+                      <tr>
+                        <td class = "fw-bold">Short School Name</td>
+                        <td>{{school.shortSchool_name}}</td>
+                      </tr>
+
+                      <!-- School Address -->
+                      <tr>
+                        <td class = "fw-bold">Address</td>
+                        <td>{{school.school_address[0].address_name}}</td>
+                      </tr>
+
+                      <!-- School Telephone -->
+                      <tr>
+                        <td class = "fw-bold">Telephone</td>
+                        <td>{{school.school_phoneNumber}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+        </div>
+
+        <br>
+        {% if total_stream != 0 %}
+            <div class = "row">
+                <div class = "col text-center school-option-area">
+                    <span class = "school-stream-options-text">School Stream Options</span>
+                </div>
+            </div>
+
+            <table class = "table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope = "col">Stream Name</th>
+                        <th scope = "col">Subjects</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for streamName in school_stream %}
+                        <tr>
+                            <th scope = "row">{{streamName.stream_name}}</th>
+                            <td>
+                                <ul>
+                                    {% for streamSubject in streamName.subjects %}
+                                        <li>{{streamSubject.subject_title}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+
+{% endblock content %}

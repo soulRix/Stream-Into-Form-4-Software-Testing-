@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{%block content %}
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <div class = "container mt-5 mb-5">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class = "alert alert-{{ category }} text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class = "row justify-content-center ms-5 mt-2">
+            <div class = "col-sm-10 ">
+                <div class = "card checkResultForm mb-5">
+                    <!-- Form Header -->
+                    <div class = "form-title-area">
+                        <span class = "form-title">Student Class Stream Checking</span>
+                    </div>
+                    <!----------------->
+        
+                    <!-- The Checking Form -->
+                    <form method = "POST" action = "" novalidate>
+                        {{ form.hidden_tag() }}
+                        <!-- Student IC Number -->
+                        <div class = "row justify-content-center mb-3">
+                            <span class = "step-text text-center">Step 1: Search Student</span>
+                            <p class ="instruction-text text-center">Please Enter Student Identity Card Number (Format IC "123456-78-9012")</p>
+                            <div class = "col-sm-12 col-md-2 col-form-label">
+                                {{ form.studentICNum.label(class="form-label fw-bold") }}
+                            </div>
+                            <div class = "col-sm-12 col-md-7">
+                                <!-- Invalid Message Error -->
+                                {% if form.studentICNum.errors %}
+                                    {{ form.studentICNum(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.studentICNum.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.studentICNum(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+        
+                        <!-- Student State -->
+                        <div class = "row justify-content-center mb-3">
+                            <span class = "step-text text-center">Step 2: Search School</span>
+                            <p class ="instruction-text text-center">Please Enter The Student's School Infromation</p>
+                            <div class = "col-sm-12  col-md-2 col-form-label">
+                                {{ form.schoolState.label(class="form-label fw-bold") }}
+                            </div>
+                            <div class = "col-sm-12 col-md-7">
+                                <!-- Invalid Message Error -->
+                                {% if form.schoolState.errors %}
+                                    <select class = "form-select is-invalid" name = "schoolState" id = "schoolState">
+                                        {% for option in form.schoolState %}
+                                            {% if loop.first %}
+                                                <option value="" disabled selected>- Please Select Your State -</option>
+                                            {% endif %}
+                                            {{ option }}
+                                        {% endfor %}
+                                    </select>
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.schoolState.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    <select class = "form-select" name = "schoolState" id = "schoolState">
+                                        {% for option in form.schoolState %}
+                                            {% if loop.first %}
+                                                <option value="" disabled selected> - Please Select State -</option>
+                                            {% endif %}
+                                            {{ option }}
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Student Zone -->
+                        <div class = "row justify-content-center mb-3">
+                            <div class = "col-sm-12  col-md-2 col-form-label">
+                                {{ form.schoolZon.label(class="form-label fw-bold") }}
+                            </div>
+                            <div class = "col-sm-12 col-md-7">
+                                <!-- Invalid Message Error -->
+                                {% if form.schoolZon.errors %}
+                                    {{ form.schoolZon(class="form-select is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.schoolZon.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.schoolZon(class="form-select") }}
+                                    
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- School Name -->
+                        <div class = "row justify-content-center mb-3">
+                            <div class = "col-sm-12  col-md-2 col-form-label">
+                                {{ form.schoolName.label(class="form-label fw-bold") }}
+                            </div>
+                            <div class = "col-sm-12 col-md-7">
+                                <!-- Invalid Message Error -->
+                                {% if form.schoolName.errors %}
+                                    {{ form.schoolName(class="form-select is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.schoolName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.schoolName(class="form-select") }}
+
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button Area-->
+      
+                        <div class = "text-center">
+                            {{ form.submit(class = "btn custom-button ")}}
+                        </div>
+                    </form>
+                    <!----------------------->
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <script>
+        state_select = document.getElementById('schoolState');
+        zone_select = document.getElementById('schoolZon');
+        school_select = document.getElementById('schoolName');
+
+        state_select.onchange = function(){
+            state = state_select.value;
+            // alert(state);
+        
+            fetch('/zone/' + state).then(function(response){
+                response.json().then(function(data){
+                    //console.table(data)
+                    let optionHTML = '';
+                    var i = 0;
+                    for(let zone of data.zonelist){
+                        if (i == 0){
+                            optionHTML += '<option value="' + '"disabled selected>' + 'Please Select Zone' + '</option>'; 
+                            i++
+                        }
+                        optionHTML += '<option value="' + zone.id + '">' + zone.code + ' - ' + zone.name + '</option>';
+                    }
+
+                    zone_select.innerHTML = optionHTML;
+
+
+                });
+            });
+        }
+        zone_select.onchange = function(){
+            zone = zone_select.value;
+            //alert(state);
+        
+            fetch('/getSchool/' + zone).then(function(response){
+                response.json().then(function(data){
+                    //console.table(data)
+                    let optionHTML = '';
+                    var i = 0;
+                    for(let school of data.schoolist){
+                        if (i == 0){
+                            optionHTML += '<option value="' + '"disabled selected>' + 'Please Select School' + '</option>'; 
+                            i++
+                        }
+                        optionHTML += '<option value="' + school.id + '">' + school.name + '</option>';
+                    }
+
+                    school_select.innerHTML = optionHTML;
+
+                });
+            });
+        }
+    </script>
+
+
+{% endblock content %}

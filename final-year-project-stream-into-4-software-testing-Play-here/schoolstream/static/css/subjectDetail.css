@@ -1,0 +1,111 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    border:none;
+   
+}
+
+*:focus
+{
+    outline: none !important;
+}
+
+
+
+/*=============================================================*/
+/* Title Section */
+.subject-title
+{
+    font-size: 50px;
+    border-bottom: 5px solid #F5CA7B;
+}
+
+
+
+.subject-title-area
+{
+    margin-top: 50px;
+}
+
+
+.font-30
+{
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing:3px;
+
+}
+
+.career-section
+{
+    margin: 5px 0px 50px 0px;
+}
+
+.text-bold
+{
+    font-weight: bold;
+}
+
+.font-24
+{
+    font-size: 24px;
+
+}
+
+.font-20
+{
+    font-size: 20px;
+    
+    
+}
+/*=============================================================*/
+
+
+
+/*=============================================================*/
+/* Carousel Section */
+.owl-carousel 
+{
+    display: flex;
+    text-align: center;
+}
+
+.owl-carousel .item
+{
+    float:none;
+    display: inline-block;
+}
+
+.career-card
+{
+    width: 19rem; 
+    border-radius: 30px; 
+    background-color: #cee1ff;
+    
+}
+
+.academic-option-padding
+{
+    padding: 40px;
+}
+
+.career-picture-card
+{
+
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+}
+
+.career-card-title
+{
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing:3px;
+}
+/*=============================================================*/

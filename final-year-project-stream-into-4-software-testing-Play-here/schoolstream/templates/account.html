@@ -1,0 +1,577 @@
+<!-- For Admin -->
+{% if current_user.is_authenticated and current_user.roles[0].name == 'admin_SchoolStream' %}
+  {% extends "baseAdmin.html" %}
+  {%block admin %}
+    <!--Content Area -->
+    <div class = "container ">
+      <div class = "row justify-content-center">
+        <div class = "card">
+            <div class = "row" style = "height: 560px;">
+                <div class = "col-md-3 ps-0 pe-0 border-end">
+                    <!-- Navigation Bar -->
+                    <div class="list-group rounded-0" id = "vertical-tab" role = "tablist" aria-orientation="vertical">
+                        <button type="button" class="list-group-item list-group-item-action active p-4" id="account-info-tab" data-bs-toggle="pill" data-bs-target="#account" role="tab" aria-controls="account-info" aria-current="true">
+                            Account Information
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action p-4" id="change-password-tab" data-bs-toggle="pill" data-bs-target="#password" role="tab" aria-controls="change-password" aria-current="false">
+                            Change Password
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action p-4" id="to-do-list-tab" data-bs-toggle="pill" data-bs-target="#to-do-list" role="tab" aria-controls="to-do-list" aria-current="false">
+                            To Do List
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action p-4" id="annoucement-info-tab" data-bs-toggle="pill" data-bs-target="#annoucement-info" role="tab" aria-controls="annoucement-info" aria-current="false">
+                            Annoucement
+                        </button>
+                    </div>
+
+                </div>
+                <div class = "col-md-9" style = "background-color: #FAFAFA;">
+                    <!-- The Content For Each Navigation-->
+                    <div class="tab-content" id="vertical-tab-content">
+                        <!-- Account Information Content -->
+                        <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-info-tab">
+                          <div class = "container mt-3">
+                            <div class = "row justify-content-center">
+                              <div class = "col-sm-2 me-2">
+                                <img src="{{ image_file }}" class="rounded-circle float-end" width="56" height = "56">
+                              </div>
+                              <div class = "col-sm-5">
+                                <h4 class = " mt-3">{{current_user.name}}</h4>
+                                
+                              </div>
+                            </div>
+                            <br>
+                            <!-- Form Starts Here -->
+                            <form class = "mb-4" method = "POST" action = "" enctype = "multipart/form-data">
+                              <!-- Protect from Forgery Attacks so need the hidden Tag -->
+                              {{ form.hidden_tag() }}
+
+                              <!-- Admin Name -->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label ">
+                                  {{ form.name.label(class="float-end")}}
+                                </div>
+                                  
+                                <div class = "col-sm-5">
+                                  <!-- Invalid Message Error -->
+                                  {% if form.name.errors %}
+                                    {{ form.name(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                  {% else %}
+                                    <!-- Valid -->
+                                    {{ form.name(class="form-control", value = current_user.name)}}
+                                      
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <!-- Role Field -->
+                              <div class = "row justify-content-center mb-3">
+                                <label for = "icNum" class = "col-sm-2 col-form-label me-2">
+                                  <div class = "float-end">Role</div>
+                                </label>
+                                <div class = "col-sm-5">
+                                  <input class="form-control" type="text" value = "{{current_user.roles[0].name}}" aria-label="Disabled input example" disabled>
+                                </div>
+                              </div>
+
+                              <!-- Admin IC Number -->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label">
+                                  {{ form.icNumber.label(class="float-end") }}
+                                </div>
+
+                                <div class = "col-sm-5">
+                                  <!-- Invalid Message Error -->
+                                  {% if form.icNumber.errors %}
+                                      {{ form.icNumber(class="form-control is-invalid") }}
+                                      <div class = "invalid-feedback">
+                                          {% for error in form.icNumber.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      <!-- Valid -->
+                                      {{ form.icNumber(class="form-control", value = current_user.icNumber) }}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <!-- Admin Email-->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label">
+                                  {{ form.email.label(class="float-end") }}
+                                </div>
+
+                                <div class = "col-sm-5">
+                                  <!-- Invalid Message Error -->
+                                  {% if form.email.errors %}
+                                      {{ form.email(class="form-control is-invalid") }}
+                                      <div class = "invalid-feedback">
+                                          {% for error in form.email.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      <!-- Valid -->
+                                      {{ form.email(class="form-control") }}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <!-- Phone Number Field --> 
+                              <div class = "row justify-content-center mb-3">
+                                <label for = "icNum" class = "col-sm-2 col-form-label me-2">
+                                  <div class = "float-end">Phone Number</div>
+                                </label>
+                                <div class = "col-sm-5">
+                                  <input type = "text" class = "form-control" id = "phoneNum" value = "{{current_user.phoneNumber}}" disabled>
+                                </div>
+                              </div>
+
+                              <!-- Picture -->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label">
+                                  {{ form.picture.label(class="float-end") }}
+                                </div>
+                                
+                                
+                                <div class = "col-sm-5">
+                                  {{ form.picture(class="form-control-file") }}
+                                  {% if form.picture.errors %}
+                                    {% for error in form.picture.errors %}
+                                      <span class = "text-danger">{{ error }}</span><br>
+                                    {% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class = "text-center">
+                                  {{form.submit(class = "btn btn-primary mt-2")}}
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+
+                        <!-- Change Password -->
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="change-password-tab">
+                            <div class = "container mt-3">
+                              <div class = "row justify-content-center mb-4">
+                                <div class = "col-sm-2 me-2">
+                                  <img src="{{ image_file }}" class="rounded-circle float-end" width="56" height = "56">
+                                </div>
+                                <div class = "col-sm-5">
+                                  <h4 class = "mt-3">{{current_user.name}}</h4>
+                                </div>
+                            </div>
+                            <form class = "mb-4" method = "POST" action = "">
+                              
+                              {{ form1.hidden_tag() }}
+
+                              <!-- Old Password-->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label ">
+                                  {{ form1.old_password.label(class="float-end")}}
+                                </div>
+                                <div class = "col-sm-5">
+                                  <!-- Invalid Message Error -->
+                                  {% if form1.old_password.errors %}
+                                      {{ form1.old_password(class="form-control is-invalid") }}
+                                      <div class = "invalid-feedback">
+                                          {% for error in form1.old_password.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      <!-- Valid -->
+                                      {{ form1.old_password(class="form-control")}}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <!-- New Password-->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label ">
+                                  {{ form1.password.label(class="float-end")}}
+                                </div>
+                                <div class = "col-sm-5">
+                                  <!-- Invalid Message Error -->
+                                  {% if form1.password.errors %}
+                                      {{ form1.password(class="form-control is-invalid") }}
+                                      <div class = "invalid-feedback">
+                                          {% for error in form1.password.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      <!-- Valid -->
+                                      {{ form1.password(class="form-control")}}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <!-- Confirm New Password-->
+                              <div class="row justify-content-center mb-3">
+                                <div class = "col-sm-2 col-form-label ">
+                                  {{ form1.confirm_password.label(class="float-end")}}
+                                </div>
+                                <div class = "col-sm-5">
+                                  <!-- Invalid Message Error -->
+                                  {% if form1.confirm_password.errors %}
+                                      {{ form1.confirm_password(class="form-control is-invalid") }}
+                                      <div class = "invalid-feedback">
+                                          {% for error in form1.confirm_password.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      <!-- Valid -->
+                                      {{ form1.confirm_password(class="form-control")}}
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class = "text-center">
+                                {{ form1.submit(class = "btn btn-primary mt-2")}}
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+
+                        <!-- To Do List -->
+                        <div class="tab-pane fade" id="to-do-list" role="tabpanel" aria-labelledby="to-do-list-tab">
+                            <div class = "container mt-4">
+                              <div class = "text-center">
+                                <h1> To Do List</h1>
+                                <p> Add Your Task</p>
+                              </div>
+
+                              <!-- Search Bar -->
+                              <div class = "row justify-content-center">
+                                <div class = "col me-2">
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Add Your Task" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewbox="0 0 16 16">
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Table For To do list -->
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Task</th>
+                                    <th scope="col">Action</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Repair the website</td>
+                                    <td>
+                                      <div class = "d-flex flex-row action-area">
+                                          <div class = "edit-area">
+                                              <a class = "btn btn-info">Edit</a>
+                                          </div>
+          
+                                          <div class = "delete-area">
+                                              <a class = "btn btn-danger">Delete</a>
+                                          </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Create Teacher SMK Aman Account</td>
+                                    <td>
+                                      <div class = "d-flex flex-row action-area">
+                                          <div class = "edit-area">
+                                              <a class = "btn btn-info">Edit</a>
+                                          </div>
+          
+                                          <div class = "delete-area">
+                                              <a class = "btn btn-danger">Delete</a>
+                                          </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                            </div>
+                        </div>
+                        
+                        <!-- Annoucement Information -->
+                        <div class="tab-pane fade" id="annoucement-info" role="tabpanel" aria-labelledby="annoucement-info-tab">
+                            TBD
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  {% endblock admin%}
+
+
+<!-- For Teachers -->
+{% elif current_user.is_authenticated and current_user.roles[0].name == 'teacher' %}
+  {% extends "baseTeacher.html" %}
+  {%block teacher %}
+  <div class = "container">
+    <div class = "row justify-content-center">
+      <div class = "card" >
+          <div class = "row" style = "height: 560px;">
+              <div class = "col-md-3 ps-0 pe-0 border-end">
+                <!-- Navigation Bar -->
+                <div class="list-group rounded-0" id = "vertical-teacher-tab" role = "tablist" aria-orientation="vertical">
+                    <button type="button" class="list-group-item list-group-item-action active p-4" id="account-teacher-info-tab" data-bs-toggle="pill" data-bs-target="#account-teacher" role="tab" aria-controls="account-teacher-info" aria-current="true">
+                        Account Information
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action p-4" id="teacher-change-password-tab" data-bs-toggle="pill" data-bs-target="#teacher-tab-password" role="tab" aria-controls="teacher-tab-password" aria-current="false">
+                        Change Password
+                    </button>
+                </div>
+              </div>
+              <div class = "col-md-9" style = "background-color: #FAFAFA;">
+                  <!-- The Content For Each Navigation-->
+                  <div class="tab-content" id="vertical-teacher-tab-content">
+                      <!-- Account Information Content -->
+                      <div class="tab-pane fade show active" id="account-teacher" role="tabpanel" aria-labelledby="account-teacher-info-tab">
+                        <div class = "container mt-3">
+                          <div class = "row justify-content-center">
+                            <div class = "col-sm-2 me-2">
+                              <img src="{{ image_file }}" class="rounded-circle float-end" width="56" height = "56">
+                            </div>
+                            <div class = "col-sm-5">
+                              <h4 class = " mb-0">{{current_user.name}}</h4>
+                              <button class = "text-primary mt-0" type = "button">Change Profile Photo</button>
+                            </div>
+                          </div>
+
+                          <br>
+
+                          <form class = "mb-4" method = "POST" action = "" enctype = "multipart/form-data" >
+                            <!-- Protect from Forgery Attacks so need the hidden Tag -->
+                            {{ form.hidden_tag() }}
+
+                            <!-- Admin Name -->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label ">
+                                {{ form.name.label(class="float-end")}}
+                              </div>
+                                
+                              <div class = "col-sm-5">
+                                <!-- Invalid Message Error -->
+                                {% if form.name.errors %}
+                                    {{ form.name(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    
+                                      {{ form.name(class="form-control", value = current_user.name)}}
+                                    
+                                {% endif %}
+                              </div>
+                            </div>
+
+                            <!-- Role Field -->
+                            <div class = "row justify-content-center mb-3">
+                              <label for = "icNum" class = "col-sm-2 col-form-label me-2">
+                                <div class = "float-end">Role</div>
+                              </label>
+                              <div class = "col-sm-5">
+                                <input class="form-control" type="text" value = "{{current_user.roles[0].name}}" aria-label="Disabled input example" disabled>
+                              </div>
+                            </div>
+
+                            <!--  IC Number -->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label">
+                                {{ form.icNumber.label(class="float-end") }}
+                              </div>
+
+                              <div class = "col-sm-5">
+                                <!-- Invalid Message Error -->
+                                {% if form.icNumber.errors %}
+                                    {{ form.icNumber(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.icNumber.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    
+                                      {{ form.icNumber(class="form-control", value = current_user.icNumber) }}
+                                    
+                                {% endif %}
+                              </div>
+                            </div>
+
+                            <!-- Email-->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label">
+                                {{ form.email.label(class="float-end") }}
+                              </div>
+                              <div class = "col-sm-5">
+                                <!-- Invalid Message Error -->
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->                                 
+                                    {{ form.email(class="form-control", value = current_user.email) }}
+                                {% endif %}
+                              </div>
+                            </div>
+
+                            <!-- Phone Number Field --> 
+                            <div class = "row justify-content-center mb-3">
+                              <label for = "icNum" class = "col-sm-2 col-form-label me-2">
+                                <div class = "float-end">Phone Number</div>
+                              </label>
+                              <div class = "col-sm-5">
+                                <input type = "text" class = "form-control" id = "phoneNumTec" value = "{{current_user.phoneNumber}}" disabled>
+                              </div>
+                            </div>
+                            
+                            <!-- Picture -->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label">
+                                {{ form.picture.label(class="float-end") }}
+                              </div>
+                              
+                              
+                              <div class = "col-sm-5">
+                                {{ form.picture(class="form-control-file", value = current_user.email) }}
+                                {% if form.picture.errors %}
+                                  {% for error in form.picture.errors %}
+                                    <span class = "text-danger">{{ error }}</span><br>
+                                  {% endfor %}
+                                {% endif %}
+                              </div>
+                            </div>
+
+                            <div class = "text-center">
+                                {{ form.submit(class = "btn btn-primary mt-2")}}
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+  
+                      <!-- Change Password -->
+                      <div class="tab-pane fade" id="teacher-tab-password" role="tabpanel" aria-labelledby="teacher-change-password-tab">
+                        <div class = "container mt-3">
+                          <div class = "row justify-content-center mb-4">
+                            <div class = "col-sm-2 me-2">
+                              <img src="{{ image_file }}" class="rounded-circle float-end" width="56" height = "56">
+                            </div>
+                            <div class = "col-sm-5">
+                              <h4 class = "mt-3">{{current_user.name}}</h4>
+                            </div>
+                          </div>
+
+
+                          <!-- Change Password Form -->
+                          <form class = "mb-4" method = "POST" action = "">
+                            {{ form1.hidden_tag() }}
+
+                            <!-- Old Password-->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label ">
+                                {{ form1.old_password.label(class="float-end")}}
+                              </div>
+                              <div class = "col-sm-5">
+                                <!-- Invalid Message Error -->
+                                {% if form1.old_password.errors %}
+                                    {{ form1.old_password(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form1.old_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form1.old_password(class="form-control")}}
+                                {% endif %}
+                              </div>
+                            </div>
+
+                            <!-- New Password-->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label ">
+                                {{ form1.password.label(class="float-end")}}
+                              </div>
+                              <div class = "col-sm-5">
+                                <!-- Invalid Message Error -->
+                                {% if form1.password.errors %}
+                                    {{ form1.password(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form1.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form1.password(class="form-control")}}
+                                {% endif %}
+                              </div>
+                            </div>
+
+                            <!-- Confirm New Password-->
+                            <div class="row justify-content-center mb-3">
+                              <div class = "col-sm-2 col-form-label ">
+                                {{ form1.confirm_password.label(class="float-end")}}
+                              </div>
+                              <div class = "col-sm-5">
+                                <!-- Invalid Message Error -->
+                                {% if form1.confirm_password.errors %}
+                                    {{ form1.confirm_password(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form1.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form1.confirm_password(class="form-control")}}
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class = "text-center">
+                              {{ form1.submit(class = "btn btn-primary mt-2")}}
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+  
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock teacher%}
+{% endif %}
+
+

@@ -1,0 +1,132 @@
+.typewriter 
+{
+    
+    display: inline-block;
+    margin-top: 15px;
+}
+  
+.typewriter-text 
+{
+    display: inline-block;
+    overflow: hidden;
+    letter-spacing: 2px;
+    color:black;
+    /* 20 is the character */
+    animation: typing 3s steps(25, end), blink .75s step-end infinite;
+    white-space: nowrap;
+    font-size: 50px;
+    font-weight: 700;
+    border-right: 4px solid #FFF200;
+    box-sizing: border-box;
+}
+
+@keyframes typing 
+{
+
+    from 
+    { 
+        width: 0% ;
+        
+    }
+    to
+    { 
+        width: 100% 
+    }
+}
+  
+@keyframes blink 
+{
+    from, to 
+    { 
+        border-color: transparent 
+    }
+    50% 
+    { 
+        border-color: #FFF200; 
+    }
+}
+
+
+
+
+.typewriter-text-2 
+{
+    display: inline-block;
+    overflow: hidden;
+    letter-spacing: 2px;
+    color:black;
+    /* 20 is the character */
+    animation: typing 5s steps(51, end), blink .75s step-end infinite;
+    white-space: nowrap;
+    font-size: 50px;
+    font-weight: 700;
+    border-right: 4px solid #FFF200;
+    box-sizing: border-box;
+}
+
+@keyframes typing 
+{
+
+    from 
+    { 
+        width: 0% ;
+        
+    }
+    to
+    { 
+        width: 100% 
+    }
+}
+  
+@keyframes blink 
+{
+    from, to 
+    { 
+        border-color: transparent 
+    }
+    50% 
+    { 
+        border-color: #FFF200; 
+    }
+}
+
+
+.typewriter-text-3 
+{
+    display: inline-block;
+    overflow: hidden;
+    letter-spacing: 2px;
+    color:black;
+    /* 20 is the character */
+    animation: typing 3s steps(18, end), blink .75s step-end infinite;
+    font-size: 50px;
+    font-weight: 700;
+    border-right: 4px solid #FFF200;
+    box-sizing: border-box;
+}
+
+@keyframes typing 
+{
+
+    from 
+    { 
+        width: 0% ;
+        
+    }
+    to
+    { 
+        width: 100% 
+    }
+}
+  
+@keyframes blink 
+{
+    from, to 
+    { 
+        border-color: transparent 
+    }
+    50% 
+    { 
+        border-color: #FFF200; 
+    }
+}

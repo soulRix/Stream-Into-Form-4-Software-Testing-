@@ -1,0 +1,198 @@
+{% extends "baseTeacher.html" %}
+{% block teacher %}
+    <!-- Content Area -->
+    <div class = "container-fluid">
+        <div class = "text-center container ">
+            <h2> Manage Students</h2>
+            <hr>
+            <h4>Teacher can manage the their school student for assigning the stream class</h4>
+            <a class = "btn btn-lg btn-warning mt-3 mb-3" href = "{{url_for('add_student')}}">Add a Student</a>
+            <br>
+            <div class = "col-sm-8 offset-sm-2 mx-auto py-3 text-center" id = "search_school_form">
+                <input class = "form-control form-control-lg search-school-bar" placeholder = "Find Student Name" id = "schoolSearch" >
+            </div>
+        </div>
+        <div clas = "table-responsive-lg" style = "padding:30px;">
+            <table class="table text-center table-hover table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Student IC</th>
+                    <th scope="col">Class Form 4</th>
+                    <th scope="col">Stream</th>
+                    <th scope="col">Results</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for student in student_list.items %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{student.student_name}}</td>
+                        <td>{{student.student_icNum}}</td>
+                        <td>{{student.student_form4_class}}</td>
+                        <td class = "fw-bold text-success">{{student.stream_package.stream_name}}</td>
+                        <td>
+                            
+                            <!-- Student Results -->
+                            <button type="button" class="btn btn-primary view_data" data-bs-toggle="modal" data-bs-target="#viewStudentResults-modal{{student.id}}">
+                                View Exam Results
+                            </button>
+
+                            <!-- Student Reults Modal -->
+                            <div class="modal fade" id="viewStudentResults-modal{{student.id}}" tabindex="-1" aria-labelledby="studentModalLabel-{{student.id}}" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fw-bolder" id="studentModalLabel-{{student.id}}">{{student.student_name}}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-5">
+                                            <h4 class = "fw-bold"> Student Information </h4>
+                                            <hr>
+                                            <div class = "row justify-content-center">
+                                                <div class = "col-sm-5 table-responsive-lg me-5">
+                                                    <table class = "table table-bordered table-striped border-dark">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope = "col"> Item </th>
+                                                                <th scope = "col"> Description </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>  IC Number  </td>
+                                                                <td class = "text-start"> {{student.student_icNum}} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> School  </td>
+                                                                <td class = "text-start"> {{student.school.shortSchool_name}} </td>
+                                                            </tr>
+                                                        </tbody>
+    
+                                                    </table>
+                                                </div>
+                                                <div class = "col-sm-5 table-responsive-lg">
+                                                    <table class = "table table-bordered table-striped border-dark">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope = "col"> Item </th>
+                                                                <th scope = "col"> Description </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>  Student Class  </td>
+                                                                <td class = "text-start"> {{student.student_form4_class}} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> Current Stream :  </td>
+                                                                <td class = "text-start"> {{student.stream_package.stream_name}} </td>
+                                                            </tr>
+                                                        </tbody>
+    
+                                                    </table>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <h4 class = "mt-4 fw-bold"> Student Results </h4>
+                                            <hr class = "">
+
+                                            <table class = "table table-bordered table-striped table-hover border-dark">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope = "col">#</th>
+                                                        <th scope = "col">Subject</th>
+                                                        <th scope = "col">Grade</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in student.grades %}
+                                                    <tr>
+                                                        <td>{{loop.index}}</td>
+                                                        <td class = "text-start"> {{item.name_subjectPT3}}</td>
+                                                        <td>{{item.grade_subject}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </td> 
+                        <td>
+                            <div class = "d-flex flex-row justify-content-center action-area">
+                                <div class = "edit-area">
+                                    <a class = "btn btn-info" href = "{{url_for('update_student', student_id = student.id)}}">Edit</a>
+                                </div>
+                                <!-- Delete Button -->
+                                <div class = "delete-area">
+                                    <a class = "btn btn-danger" data-bs-toggle = "modal" data-bs-target="#deleteStudent-modal-{{student.id}}">Delete</a>
+                                </div>
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteStudent-modal-{{student.id}}"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel-{{student.id}}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteBackdropLabel-{{student.id}}">Delete {{student.student_name}}?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h6>Are you sure you want to delete the {{student.student_name}} ?</h6>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action = "{{url_for('delete_student', student_id = student.id)}}" method = "POST">
+                                                    
+                                                    <input class = "btn btn-danger" type = "submit" value = "Delete">
+                                                </form>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" style = "float:right">
+                <ul class = "pagination">
+                    {% if student_list.has_prev %}
+                        <li class = "page-item"><a class = "page-link" href = "{{url_for('manageStudent', page = student_list.prev_num)}}">Previous</a></li>
+                    {% else %}
+                        <li class = "page-item disabled"><a class = "page-link" tabindex="-1" aria-disabled="true" href = "#">Previous</a></li>
+                    {% endif %}
+                    {% for page_num in student_list.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 2) %}
+                        {% if page_num %}
+                            {% if student_list.page == page_num %}
+                                <li class = "page-item active"><a class = "page-link " href = "{{url_for('manageStudent', page = page_num)}}">{{page_num}}</a></li>
+                                
+                            {% else %}
+                                <li class = "page-item"><a class = "page-link" href = "{{url_for('manageStudent', page = page_num)}}">{{page_num}}</a></li>
+                            {% endif %}
+                        {% else %}
+                            ...
+                        {% endif %}
+                        
+                    {% endfor %}
+
+                    {% if student_list.has_next %}
+                        <li class = "page-item"><a class = "page-link" href = "{{url_for('manageStudent', page = student_list.next_num)}}">Next</a></li>
+                    {% else %}
+                        <li class = "page-item disabled"><a class = "page-link" tabindex="-1" aria-disabled="true" href = "#">Next</a></li>
+                    {% endif %}
+                </ul>
+                
+            </nav>
+        </div>
+    </div>
+{% endblock  teacher %}

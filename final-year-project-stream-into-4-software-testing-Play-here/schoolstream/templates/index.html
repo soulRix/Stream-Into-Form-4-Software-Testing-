@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{%block content %}
+    <!-- Section 1  -->
+    <section class="text-center container">
+            <!-- Flash Message -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class = "alert alert-{{ category }} text-center" style = "margin:0;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="card bg-dark text-white">
+            <video width = "100%" height = "100%" autoplay muted loop>
+                <source src = "../static/vid/eduStreammp4.mp4" type = "video/mp4" >
+            </video>
+            <div class="card-img-overlay something-here">
+                <div class="d-flex flex-column" >
+                    <h1 class="fw-light">Welcome To The School Stream</h1>
+                    <p>
+                    <a href="{{url_for('streamChecking')}}" class="btn btn-primary btn-check-result my-2">Check Student Class Stream</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+  
+    <!-------->
+
+    <!-- Section 2 ()-->
+    <div class = "container-fluid" style = "margin:0; padding:0;background-color:#cee1ff;">
+        <!--Title of the Carousel & Slider-->
+        <div class = "container text-center" id = "academic-stream">
+            <div class = "academic-option-padding">
+                <p style = "font-size: 30px; font-weight:700; letter-spacing: 3px;"> Academic Streams Options</p>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Carousel Academic Slider -->
+        <div class = "owl-carousel owl-theme" id = "academic">
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/PureScience.jpg')}} " class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">Pure Science Stream</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/accounting-and-finance.jpg')}}" class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">Accounting Stream</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/Computing-IT.jpg')}} " class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">IT Stream</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/engineeringDrawing.jpg')}}" class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">Engineering Drawing Stream</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/accounting-and-finance.jpg')}}" class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">Accounting Stream</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/Computing-IT.jpg')}}" class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">IT Stream</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "item">
+                <div class="card" style="width: 19rem; border-radius: 30px;">
+                    <img src="{{url_for('static', filename = 'img/engineeringDrawing.jpg')}}" class="card-img-top academic-card">
+                    <div class="card-body  academic-option-title">
+                      <p class="card-text">Engineering Drawing Stream</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <br>
+        <br>
+    </div>
+
+{% endblock content%}
+
+

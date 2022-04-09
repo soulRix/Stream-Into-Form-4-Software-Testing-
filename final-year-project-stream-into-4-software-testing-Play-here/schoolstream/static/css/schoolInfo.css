@@ -1,0 +1,58 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+
+    
+}
+
+*:focus
+{
+    outline: none !important;
+}
+
+
+/*=============================================================*/
+/* School Logo" */
+
+
+.school-logo
+{
+
+    width: 200px;
+    margin-left: 100px;
+}
+
+.school-title-area
+{
+    margin-top: 80px;
+}
+
+.school-title
+{
+    border-bottom: 5px solid #FFF200;
+    font-size: 35px;
+}
+
+
+
+
+.school-stream-options-text
+{
+    font-size: 30px;
+    text-decoration: underline;
+    
+}
+
+.school-option-area
+{
+    margin-bottom: 15px;
+}
+
+
+/*=============================================================*/

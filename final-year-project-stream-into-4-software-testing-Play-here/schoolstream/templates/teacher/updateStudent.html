@@ -1,0 +1,278 @@
+{% extends "baseTeacher.html" %}
+{% block teacher %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" integrity="sha512-yVvxUQV0QESBt1SyZbNJMAwyKvFTLMyXSyBHDO4BG5t7k/Lw34tyqlSDlKIrIENIzCl+RVUNjmCPG+V/GMesRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .chosen-choices 
+    {
+        padding: 0.375rem 0.75rem !important;
+        border-radius: 0.25rem !important;
+        border: 1px solid #ced4da !important;
+    }
+
+</style>
+
+    <div class = "container">
+        <div class = "row justify-content-center">
+            <div class = "text-center mb-5">
+                <h2> Edit {{student.student_name}}</h2>
+                <hr>
+                <h4> Update Student Information</h4>
+            </div>
+            
+        </div>
+        
+        <!-- Form Here -->
+        <form method = "POST" class = "needs-validation" action = "" novalidate>
+            <!-- Protect from Forgery Attacks so need the hidden Tag -->
+            {{form.hidden_tag()}}
+
+            <!-- Student Name -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.studentName.label(class="form-label fw-bold") }}
+                </div>
+
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.studentName.errors %}
+                        {{ form.studentName(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.studentName.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.studentName(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Student School -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label fw-bold">
+                    School
+                </div>
+
+                <div class = "col-sm-7">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{school_focus.school_name}} ({{school_focus.school_code}})" disabled>
+                </div>
+            </div>
+
+            <!-- Student IC Number -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.studentICNum.label(class="form-label fw-bold") }}
+                </div>
+
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.studentICNum.errors %}
+                        {{ form.studentICNum(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.studentICNum.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.studentICNum(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Student Student Class -->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.studentClass.label(class="form-label fw-bold") }}
+                </div>
+
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.studentClass.errors %}
+                        {{ form.studentClass(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.studentClass.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.studentClass(class="form-control") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Student Stream Package-->
+            <div class = "row justify-content-center mb-4">
+                <div class = "col-sm-2 col-form-label">
+                    {{ form.streamPackage.label(class="form-label fw-bold") }}
+                </div>
+
+                <div class = "col-sm-7">
+                    <!-- Invalid Message Error -->
+                    {% if form.streamPackage.errors %}
+                        {{ form.streamPackage(class="form-select is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.streamPackage.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.streamPackage(class="form-select") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Stream Package List -->
+            <div class = "row justify-content-center mb-2">
+                <div class = "col">
+                    <h3 class = "text-dark text-center"> - Subject PT3 -</h3>
+                    <hr>
+                    <h6 class = "text-secondary text-center"> Please Enter The Student PT3 Subject </h6>
+                    <br>
+                </div>
+            </div>
+            <div class = "row justify-content-center mb-2">
+                <div class = "col-12">
+                    <div class = "input-field">
+                        <table class="table table-bordered text-center" id = "table_field">
+                            <thead>
+                            <tr>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Grade</th>
+                                <th scope="col">Add or Remove</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for value in student.grades %}
+                                    <tr>
+                                        <td>
+                                            <select data-placeholder="Subject PT3 Options..." id = "subjectPT3" class = "form-select" name = "subjectPT3Name"  tabindex = "4">
+                                                <option value = "{{value.name_subjectPT3}}" selected>{{value.name_subjectPT3}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select data-placeholder="Subject Options..." id = "subjectGrade" class = " form-select" name = "subjectGrade" tabindex="4">
+                                                {% for value2 in grade %}
+                                                    {% if value2 == value.grade_subject %}
+                                                        <option value = "{{value2}}"  selected> {{value.grade_subject}}</option>
+                                                    {% endif %}
+                                                    {% if value2 != value.grade_subject%}
+                                                        <option value="{{value2}}"> {{value2}} </option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+
+                                <!-- Others -->
+                                <tr>
+                                    <td>
+                                        <select data-placeholder="Subject PT3 Options..." id = "subjectPT3" class = "form-select" name = "subjectPT3Name"  tabindex = "4">
+                                            {% for value in  subjectPT3%}
+                                                {% if loop.first %}
+                                                    <option value = "" disabled selected>- Please Select Subject - </option>
+                                                {% elif value != "Bahasa Melayu" and value != "English" and value != "Mathematics" and  value != "Science" and value != "Sejarah" and value != "Geography" %}
+                                                    <option value = "{{value}}">{{value}}</option>
+                                                {% endif %}
+                                                
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select data-placeholder="Subject Options..." id = "subjectGrade" class = " form-select" name = "subjectGrade" tabindex="4">
+                                            {% for value2 in grade %}
+                                                {% if loop.first %}
+                                                    <option value = "" disabled selected> - Please Select Grade -</option>
+                                                {% endif %}
+                                                <option value="{{value2}}"> {{value2}} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a class = "btn btn-outline-success" type = "button" name = "add" id = "add" value = "Add">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/>
+                                            </svg>
+                                        </a>
+                                        
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "text-center">
+                {{ form.submit(class = "btn btn-primary mt-3")}}
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function fieldHTML(inputNumber) {
+                return `<tr>\
+                            <td>\
+                                <select data-placeholder="Subject PT3 Options..." id = "subjectPT3" class = "form-select" name = "subjectPT3Name"  tabindex = "4">\
+                                        {% for value in  subjectPT3%} \
+                                            {% if loop.first %}\
+                                                <option value = "" disabled selected>- Please Select Subject - </option>\
+                                            {% elif value != "Bahasa Melayu" and value != "English" and value != "Mathematics" and  value != "Science" and value != "Sejarah" and value != "Geography" %}\
+                                                <option value = "{{value}}">{{value}}</option>\
+                                            {% endif %}\
+                                        {% endfor %}
+                                </select>\
+                            </td>\
+                            <td>\
+                                <select data-placeholder="Subject Options..." id = "subjectGrade" class = " form-select" name = "subjectGrade" tabindex="4">\
+                                        {% for value2 in grade %}\
+                                            {% if loop.first %}
+                                                <option value = "" disabled selected> - Please Select Grade -</option>\
+                                            {% endif %}\
+                                            <option value="{{value2}}"> {{value2}} </option>\
+                                        {% endfor %}
+                                </select>\
+                            </td>\
+                            <td>\
+                                <a class = "btn btn-outline-danger" type = "button" name = "remove" id = "remove" value = "Remove"> \
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-x-fill" viewBox="0 0 16 16">\
+                                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM6.854 6.146 8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 1 1 .708-.708z"/>\
+                                    </svg>\
+                                </a>\
+                            </td>\
+                        </tr>`
+            }
+        var addButton = $("#add");
+        var wrapper = $("#table_field");
+        var maxField = 3
+        var x = 1;
+        $(addButton).on('click', function(e){
+            if(x <= maxField)
+            {
+                
+                x++;
+                $(wrapper).append(fieldHTML(x));
+            }
+            else{
+                alert("Maximum fields is 11.");
+            }   
+        })
+        $(wrapper).on('click','#remove',function(){
+                $(this).closest('tr').remove()
+                x--;
+        });
+            
+
+    </script>
+
+
+
+{% endblock  teacher %}

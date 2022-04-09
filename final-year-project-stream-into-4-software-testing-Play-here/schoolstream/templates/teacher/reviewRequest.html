@@ -1,0 +1,180 @@
+{% extends "baseTeacher.html" %}
+{% block teacher %}
+    <!-- Content Area -->
+    <div class = "container-fluid">
+        <div class = "text-center container mt-5">
+            <h2> Review Student Request</h2>
+            <hr>
+            <h4>Teacher can review the student request to change stream</h4>
+            <br>
+            <div class = "col-sm-8 offset-sm-2 mx-auto py-3 text-center" id = "search_school_form">
+                <input class = "form-control form-control-lg search-school-bar" placeholder = "Find Student to Review" id = "schoolSearch" >
+            </div>
+        </div>
+        <div clas = "table-responsive-lg" style = "padding:30px;">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Student IC</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email</th>
+                    <th scope = "col">Current Stream Results</th>
+                    <th scope="col">New Stream Choice</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in student_list.items %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{student.student_name}}</td>
+                        <td>{{student.student_ic}}</td>
+                        <td>{{student.phoneNum}}</td>
+                        <td>
+                            {{student.student_email}}
+                        </td>
+                        <!-- Current Results for Student Stream Results -->
+                        <td class = "text-success">{{student.student.stream_package.stream_name}}</td>
+                        <!-- The new stream choice made by the Student -->
+                        <td class = "text-danger">
+                            {{student.stream_package.stream_name}}
+                        </td>
+                        <td>
+                            <div class = "d-flex flex-row justify-content-center action-area">
+                                <div class = "edit-area">
+                                    <form action = "{{url_for('update_studentRequest', student_id = student.student_id, streampackage_id = student.streamPackage_id)}}" method = "POST">
+                                        <input class = "btn btn-success" type = "submit" value = "Accept">
+                                    </form>
+                                </div>
+                                <!-- Info Area -->
+                                <div class = "info-area me-3">
+                                    
+                                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-{{student.id}}">
+                                        Info
+                                    </button>
+                                    <!-- Info Modal -->
+                                    <div class="modal fade" id="exampleModal-{{student.id}}" tabindex="-1" aria-labelledby="exampleModalLabel-{{student.id}}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel-{{student.id}}">Info Request Change</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class = "table table-bordered border-dark">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Item </th>
+                                                            <th scope="col">Description</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Student Name </td>
+                                                            <td>{{student.student_name}}</td>
+                                                            
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Student IC</td>
+                                                            <td>{{student.student_ic}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Student Phone Number</td>
+                                                            <td>{{student.phoneNum}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Student Email</td>
+                                                            <td>{{student.student_email}}</td>
+                                                        </tr>
+                                                        <tr class = "table-info table-bordered border-dark">
+                                                            <td>New Stream Request</td>
+                                                            <td>{{student.stream_package.stream_name}}</td>
+                                                        </tr>
+                                                        <tr class = "table-warning border-dark">
+                                                            <td>Reason to Change</td>
+                                                            <td>{{student.reasonToChange}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Rejecting Area -->
+                                <div class = "delete-area">
+                                    <button class = "btn btn-danger" data-bs-toggle = "modal" data-bs-target="#rejectRequestStudent-{{student.id}}">Reject</button>
+                                    
+                                    <!-- Rejecting Modal -->
+                                    <div class="modal fade" id="rejectRequestStudent-{{student.id}}"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel-{{student.id}}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title fw-bold text-danger" id="deleteBackdropLabel-{{student.id}}">Reject {{student.student_name}} stream change request? </h5>
+                                                <img class = "" src = "{{url_for('static', filename = 'img/warning_logo.png')}}" width = "30" height = "30">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body" background-color="#eed202">
+                                                    <h6>Are you sure you want to reject the {{student.student_name}} request change stream form ?</h6>
+                                                    
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action = "{{url_for('delete_reviewRequest', request_id = student.id)}}" method = "POST">
+                                                        
+                                                        <input class = "btn btn-danger" type = "submit" value = "Delete">
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example" style = "float:right">
+                <ul class = "pagination">
+                    {% if student_list.has_prev %}
+                        <li class = "page-item"><a class = "page-link" href = "{{url_for('reviewRequest', page = student_list.prev_num)}}">Previous</a></li>
+                    {% else %}
+                        <li class = "page-item disabled"><a class = "page-link" tabindex="-1" aria-disabled="true" href = "#">Previous</a></li>
+                    {% endif %}
+                    {% for page_num in student_list.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 2) %}
+                        {% if page_num %}
+                            {% if student_list.page == page_num %}
+                                <li class = "page-item active"><a class = "page-link " href = "{{url_for('reviewRequest', page = page_num)}}">{{page_num}}</a></li>
+                                
+                            {% else %}
+                                <li class = "page-item"><a class = "page-link" href = "{{url_for('reviewRequest', page = page_num)}}">{{page_num}}</a></li>
+                            {% endif %}
+                        {% else %}
+                            ...
+                        {% endif %}
+                        
+                    {% endfor %}
+
+                    {% if student_list.has_next %}
+                        <li class = "page-item"><a class = "page-link" href = "{{url_for('reviewRequest', page = student_list.next_num)}}">Next</a></li>
+                    {% else %}
+                        <li class = "page-item disabled"><a class = "page-link" tabindex="-1" aria-disabled="true" href = "#">Next</a></li>
+                    {% endif %}
+                </ul>
+                
+            </nav>
+        </div>
+
+    </div>
+
+{% endblock teacher %}

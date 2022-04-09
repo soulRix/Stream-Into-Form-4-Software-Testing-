@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class = "container mt-5">
+        <div class = "card login-box">
+            <div class = "login-text">
+                <span class = "text-area">
+                    <span class = "login-title">
+                        <i class="fas fa-lock fa-lg" style ="margin-right:5px; transform: translateY(-2px)"></i>
+                         Password Reset
+                    </span>
+                    <hr>
+                </span>
+                <!-- Flash Message -->
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class = "alert alert-{{ category }} text-center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <form method = "POST" action = "" >
+                <!-- Protect from Forgery Attacks so need the hidden Tag -->
+                {{ form.hidden_tag() }}
+
+                <!-- Password -->
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }}
+                    <!-- Invalid Message Error -->
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.password(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    {{ form.confirm_password.label(class="form-label") }}
+                    <!-- Invalid Message Error -->
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control is-invalid") }}
+                        <div class = "invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- Valid -->
+                        {{ form.confirm_password(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                
+
+                <div class = "text-center">
+                    {{ form.submit(class = "create-account mt-3")}}
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

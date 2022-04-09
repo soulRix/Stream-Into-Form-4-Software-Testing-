@@ -1,0 +1,96 @@
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500');
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+
+    
+}
+
+*:focus
+{
+    outline: none !important;
+}
+
+
+/*=============================================================*/
+/* Section 1 "Check The Results" */
+
+video
+{
+    filter:brightness(20%)
+}
+
+.something-here
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-check-result
+{
+    padding: 0px 40px;
+    margin-top: 5px;
+    font-size: 20px;
+    color: black;
+    border-radius: 15px;
+    width: auto;
+    cursor: pointer;
+    font-weight: 700;
+    justify-content: center;
+    height:50px;
+    align-items: center;
+    border: 0;
+    display: inline-flex;
+    margin-right: 8px;
+    
+    
+}
+
+
+
+/*=============================================================*/
+/* Carousel @ Slider Area */
+
+.owl-carousel 
+{
+    display: flex;
+    text-align: center;
+}
+
+.owl-carousel .item
+{
+    float:none;
+    display: inline-block;
+}
+
+.academic-option-padding
+{
+    padding: 40px;
+}
+
+.academic-card
+{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+
+}
+
+.academic-option-title
+{
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing:1px;
+    white-space: nowrap;
+}
+
+
+
+
+
+/*=============================================================*/

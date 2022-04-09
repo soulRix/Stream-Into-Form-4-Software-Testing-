@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!--For the Python Flask to read Static File-->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/headerfooterRole.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/manageStudent.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/viewProfile.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/reviewRequest.css')}}">
+
+
+
+{% if title %}
+    <title> School Stream - {{ title }}</title>
+{% else %}
+    <title> School Stream </title>
+{% endif %}
+</head> 
+<body style = "overflow-x: hidden">
+    <!-- Top Header Navigation -->
+    <header class = "border-bottom">
+        <nav class = "navbar navbar-expand-lg navbar-light">
+            <div class = "container">
+                <!-- url_for is using the function -->
+                <a href = "{{url_for('homepage')}}" class = "logo-section" style = " text-decoration: none ">
+                    <img class = "logo-picture" src = "{{url_for('static', filename = 'img/logo_stream.png')}}" width = "50" height = "50">
+                    <span class = "logo-title">School Stream</span>
+                </a>
+
+                <!-- Responsive Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class = "collapse navbar-collapse" id = "navbarResponsive">
+                    <ul class = "navbar-nav ms-auto">
+                        <li class = "nav-item nav-link active">
+                            <a href ="{{url_for('manageStudent')}}" class = "nav-link-text">Manage Student</a>
+                        </li>
+
+                        <li class = "nav-item nav-link">
+                            <a href ="{{url_for('reviewRequest')}}" class = "nav-link-text">Review Request</a>
+                        </li>
+                        {% if current_user.is_authenticated and current_user.roles[0].name == 'teacher' %}
+                            <li class = "nav-item dropdown nav-link">
+                                <button class = "dropdown-toggle nav-link-text" id = "teacher-account-dropdown" data-bs-toggle = "dropdown" aria-expanded = "false">
+                                    <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" class="rounded-circle" width="30" height = "30">
+                                    {{ current_user.name }}
+                                </button>
+                                <ul class = "dropdown-menu" aria-labelledby="teacher-account-dropdown">
+                                    <li><a href ="{{url_for('teacherDashboard')}}" class = "dropdown-item">Dashboard</a></li>
+                                    <li><a href ="{{url_for('account')}}" class = "dropdown-item">Account</a></li>
+                                    <li><a href ="{{url_for('logout')}}" class = "dropdown-item">Logout</a></li>
+                                </ul>
+                            </li>
+
+                        {% else %}
+                            <li class = "nav-item nav-link"><a href ="{{url_for('loginPage')}}" class = "nav-link-text">
+                                User
+                            </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+    <!---->
+
+    <div class = "container-fluid mb-5 mt-5">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class = "alert alert-{{ category }} text-center">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block teacher %}{% endblock teacher %}
+    </div>
+    
+
+    <!-- Footer Section -->
+    <footer class = "footer footer-section mt-auto py-3">
+        <div class = "container footer-text">
+            <p>
+                Stream Into Form 4 Website For Final Year Project
+            </p>
+            <p>
+                By Tuan Arif Uwais, MMU Student
+            </p>
+        </div>
+    </footer>
+    <!-------->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>

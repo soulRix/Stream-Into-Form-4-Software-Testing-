@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+{%block content %}
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!--Request Change Form -->
+    <div class="container mb-5 mt-3">
+        <!-- Jumbotron Title Or Some Explanation -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class = "alert alert-{{ category }} text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class = "py-5 text-center">
+            <img class = "d-block mx-auto mb-4" src = "{{url_for('static', filename = 'img/logo_stream.png')}}" width = "72" height = "57">
+            <h2>Request Stream Change</h2>
+            <p class = "lead">
+                Below is a form for student to request change for their electives stream choices.
+                The choices of stream is based on school offers and availability.
+                Please refer <a href = "{{url_for('schoolStreamList')}}" style = "font-size:inherit; color:blue; ">here</a> to see the Schools Stream Packages offers
+            </p>
+        </div>
+        <div class = "d-flex justify-content-center mb-5">
+            <div class = "row g-5">
+                <div class = "col-md-8 col-lg-12">
+                    <h4 class = "mb-3"> The Request Change Form</h4>
+                    <hr>
+                    <!-- The Form Starts Here! -->
+                    <form method = "POST" class = "" novalidate>
+                        {{ form.hidden_tag() }}
+                        <div class = "row g-4">
+
+                            <!--Student  Name -->
+                            <div class = "col-sm-6">
+                                {{ form.studentName.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.studentName.errors %}
+                                    {{ form.studentName(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.studentName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.studentName(class="form-control") }}
+                                {% endif %}
+                            </div>
+
+                            <!--Student  IC Number -->
+                            <div class = "col-sm-6">
+                                {{ form.studentIC.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.studentIC.errors %}
+                                    {{ form.studentIC(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.studentIC.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.studentIC(class="form-control", placeholder="Format: xxxxxx-xx-xxxx") }}
+                                {% endif %}
+                                <small>Format: 000000-00-0000</small>
+                            </div>
+
+                            <!--Student  Phone -->
+                            <div class = "col-sm-12 mb-2">
+                                {{ form.studentPhoneNum.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.studentPhoneNum.errors %}
+                                    {{ form.studentPhoneNum(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.studentPhoneNum.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.studentPhoneNum(class="form-control", placeholder ="XXX-XXXXXXX") }}
+                                {% endif %}
+                                <small>Format: 012-34567890</small>
+                            </div>
+
+                            
+                            <!--Student  Email -->
+                            <div class = "col-sm-12 mb-2">
+                                {{ form.student_email.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.student_email.errors %}
+                                    {{ form.student_email(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.student_email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.student_email(class="form-control") }}
+                                {% endif %}
+                            </div>
+
+                            <!--School State -->
+                            <div class = "col-md-4">
+                                <!-- School State Label -->
+                                {{ form.schoolState.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.schoolState.errors %}
+                                    <select class = "form-select is-invalid" name = "schoolState" id = "schoolState">
+                                        {% for option in form.schoolState %}
+                                            {% if loop.first %}
+                                                <option value="" disabled selected>- Please Select Your State -</option>
+                                            {% endif %}
+                                            {{ option }}
+                                        {% endfor %}
+                                    </select>
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.schoolState.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    <select class = "form-select" name = "schoolState" id = "schoolState">
+                                        {% for option in form.schoolState %}
+                                            {% if loop.first %}
+                                                <option value="" disabled selected> - Please Select State -</option>
+                                            {% endif %}
+                                            {{ option }}
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+
+                            <!-- School Zone -->
+                            <div class = "col-md-4">
+                                {{ form.schoolZon.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.schoolZon.errors %}
+                                    {{ form.schoolZon(class="form-select is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.schoolZon.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.schoolZon(class="form-select") }}
+                                    
+                                {% endif %}
+                            </div>
+
+                            <!--Student School Name -->
+                            <div class = "col-md-4">
+                                {{ form.schoolName.label(class="form-label fw-bold") }}
+                                {% if form.schoolName.errors %}
+                                    {{ form.schoolName(class="form-select is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.schoolName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.schoolName(class="form-select") }}
+
+                                {% endif %}
+                            </div>
+
+                            <!-- Stream Option (Stream to choose) -->
+                            <div class = "col-12">
+                                {{ form.streamNewPackage.label(class="form-label fw-bold") }}
+                                {% if form.streamNewPackage.errors %}
+                                    {{ form.streamNewPackage(class="form-select is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.streamNewPackage.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.streamNewPackage(class="form-select", placeholder="example") }}
+
+                                {% endif %}
+                            </div>
+                            
+
+                            <!--Reason to change Text -Area -->
+                            <div class = "col-12 mb-3">
+                                {{ form.reasonToChange.label(class="form-label fw-bold") }}
+                                <!-- Invalid Message Error -->
+                                {% if form.reasonToChange.errors %}
+                                    {{ form.reasonToChange(class="form-control is-invalid") }}
+                                    <div class = "invalid-feedback">
+                                        {% for error in form.reasonToChange.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <!-- Valid -->
+                                    {{ form.reasonToChange(class="form-control", placeholder="Eg: Why student are not satisfied with the stream results?, Change because Student is not interest in the result stream, etc") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        {{ form.submit(class = "w-100 btn btn-primary btn-lg mt-3")}}
+                    </form>
+                    <!--------------------------->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--------------->
+    <script>
+        state_select = document.getElementById('schoolState');
+        zone_select = document.getElementById('schoolZon');
+        school_select = document.getElementById('schoolName');
+        stream_select = document.getElementById('streamNewPackage')
+
+        state_select.onchange = function(){
+            state = state_select.value;
+            // alert(state);
+        
+            fetch('/zone/' + state).then(function(response){
+                response.json().then(function(data){
+                    //console.table(data)
+                    let optionHTML = '';
+                    var i = 0;
+                    for(let zone of data.zonelist){
+                        if (i == 0){
+                            optionHTML += '<option value="' + '"disabled selected>' + 'Please Select Zone' + '</option>'; 
+                            i++
+                        }
+                        optionHTML += '<option value="' + zone.id + '">' + zone.code + ' - ' + zone.name + '</option>';
+                    }
+
+                    zone_select.innerHTML = optionHTML;
+
+
+                });
+            });
+        }
+        zone_select.onchange = function(){
+            zone = zone_select.value;
+            //alert(state);
+        
+            fetch('/getSchool/' + zone).then(function(response){
+                response.json().then(function(data){
+                    //console.table(data)
+                    let optionHTML = '';
+                    var i = 0;
+                    for(let school of data.schoolist){
+                        if (i == 0){
+                            optionHTML += '<option value="' + '"disabled selected>' + 'Please Select School' + '</option>'; 
+                            i++
+                        }
+                        optionHTML += '<option value="' + school.id + '">' + school.name + '</option>';
+                    }
+
+                    school_select.innerHTML = optionHTML;
+
+                });
+            });
+        }
+        school_select.onchange = function(){
+            school = school_select.value;
+            //alert(state);
+        
+            fetch('/getStreamPackage/' + school).then(function(response){
+                response.json().then(function(data){
+                    //console.table(data)
+                    let optionHTML = '';
+                    var i = 0;
+                    for(let stream of data.streamlist){
+                        if (i == 0){
+                            optionHTML += '<option value="' + '"disabled selected>' + 'Please Your Desired Stream' + '</option>'; 
+                            i++
+                        }
+                        optionHTML += '<option value="' + stream.id + '">' + stream.stream_name + '</option>';
+                    }
+
+                    stream_select.innerHTML = optionHTML;
+
+                });
+            });
+        }
+    </script>
+{% endblock %}

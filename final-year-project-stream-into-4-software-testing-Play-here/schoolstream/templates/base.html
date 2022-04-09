@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!--For the Python Flask to read Static File-->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/headerfooter.css')}}">
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/homepage.css')}}">
+
+<!--Checking Stream Results CSS-->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/checkResult.css')}}">
+
+
+
+
+<!-- Authentication Section-->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/login.css')}}">
+
+<!-- Request Change Stream -->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/requestChangeForm.css')}}">
+
+<!-- Student Results -->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/resultstudent.css')}}">
+
+<!-- The Typewritter Effects -->
+<link rel="stylesheet" type = "text/css" href="{{ url_for('static' , filename='css/typewriter.css')}}">
+
+<!-- Only For just Front-end view (Not Complete for Local Run)-->
+<link rel="stylesheet" type = "text/css" href="../static/css/headerfooter.css">
+<link rel="stylesheet" type = "text/css" href="../static/css/homepage.css">
+
+    {% if title %}
+        <title> School Stream - {{ title }}</title>
+    {% else %}
+        <title> School Stream </title>
+    {% endif %}
+
+</head>
+<body style = "overflow-x: hidden">
+    <!-- Top Header Navigation -->
+    <header class = "border-bottom">
+        <nav class = "navbar navbar-expand-lg navbar-light">
+            <div class = "container">
+                <!-- url_for is using the function -->
+                <a href = "{{url_for('homepage')}}" class = "logo-section" style = " text-decoration: none ">
+                    <img class = "logo-picture" src = "{{url_for('static', filename = 'img/logo_stream.png')}}" width = "50" height = "50">
+                    <span class = "logo-title">School Stream</span>
+                </a>
+
+                <!-- Responsive Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class = "collapse navbar-collapse" id = "navbarResponsive">
+                    <ul class = "navbar-nav ms-auto">
+                        <li class = "nav-item nav-link active">
+                            <a href ="{{url_for('streamChecking')}}" class = "nav-link-text">Stream Checking</a>
+                        </li>
+
+                        <li class = "nav-item nav-link">
+                            <a href ="{{url_for('schoolStreamList')}}" class = "nav-link-text">School Stream Offer List</a>
+                        </li>
+
+                        <li class = "nav-item nav-link">
+                            <a href ="{{url_for('subjectList')}}" class = "nav-link-text">Subject & Elective List</a>
+                        </li>
+                        {% if current_user.is_authenticated and current_user.roles[0].name == 'admin_SchoolStream' %}
+                            <li class = "nav-item dropdown nav-link">
+                                <button class = "dropdown-toggle nav-link-text" id = "account-dropdown" data-bs-toggle = "dropdown" aria-expanded = "false">
+                                    <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" class="rounded-circle" width="30" height = "30">
+                                    {{current_user.name }}
+                                </button>
+                                <ul class = "dropdown-menu" aria-labelledby="account-dropdown">
+                                    <li><a href ="{{url_for('adminDashboard')}}" class = "dropdown-item">Dashboard</a></li>
+                                    <li><a href ="{{url_for('account')}}" class = "dropdown-item">Account</a></li>
+                                    <li><a href ="{{url_for('logout')}}" class = "dropdown-item">Logout</a></li>
+                                </ul>
+                            </li>
+                        {% elif current_user.is_authenticated and current_user.roles[0].name == 'teacher' %}
+                            <li class = "nav-item dropdown nav-link">
+                                <button class = "dropdown-toggle nav-link-text" id = "teacher-account-dropdown" data-bs-toggle = "dropdown" aria-expanded = "false">
+                                    <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" class="rounded-circle" width="30" height = "30">
+                                    {{current_user.name }}
+                                </button>
+                                <ul class = "dropdown-menu" aria-labelledby="teacher-account-dropdown">
+                                    <li><a href ="{{url_for('teacherDashboard')}}" class = "dropdown-item">Dashboard</a></li>
+                                    <li><a href ="{{url_for('account')}}" class = "dropdown-item">Account</a></li>
+                                    <li><a href ="{{url_for('logout')}}" class = "dropdown-item">Logout</a></li>
+                                </ul>
+                            </li>
+
+                        {% else %}
+                            <li class = "nav-item nav-link"><a href ="{{url_for('loginPage')}}" class = "nav-link-text">
+                                Teacher & Admin
+                            </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+    <!---->
+
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer Section -->
+    <footer class = "footer footer-section mt-auto py-3">
+        <div class = "container footer-text">
+            <p>
+                Stream Into Form 4 Website For Final Year Project
+            </p>
+            <p>
+                By Tuan Arif Uwais, MMU Student
+            </p>
+        </div>
+    </footer>
+    <!-------->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('.owl-carousel').owlCarousel(
+        {
+            autoplay: true,
+            autoplayTimeout:1000,
+            autoplayHoverPause: true,
+            center:true,
+            loop:true,
+            margin:0,
+            nav:false,
+            responsive:
+            {
+                0:
+                {
+                    items:1
+                },
+                600:
+                {
+                    items:2
+                },
+                1000:
+                {
+                    items:3
+                },
+                1500:
+                {
+                    items:4
+                }
+        
+            }
+        }
+    )
+
+</script>
+</body>
+</html>
